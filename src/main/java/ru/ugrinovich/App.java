@@ -5,6 +5,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ru.ugrinovich.model.Person;
 
+import java.util.List;
+
 
 /**
  * Hello world!
@@ -28,13 +30,10 @@ public class App
         try {
             session.beginTransaction();
 
-            Person person = new Person("Maks", 21);
-            Person person1 = new Person("Dima" ,22);
-            Person person2 = new Person("Vadim", 23);
-            // сохранение сущностей
-            session.save(person);
-            session.save(person1);
-            session.save(person2);
+            List<Person> personList = session.createQuery("FROM Person WHERE age < 30 ").getResultList();
+            for (Person person: personList){
+                System.out.println(person);
+            }
 
             session.getTransaction().commit();
 

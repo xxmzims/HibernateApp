@@ -5,18 +5,18 @@ import jakarta.persistence.*;
 
 // помечаем класс для связи с hibernate
 @Entity
-@Table(name= "Person")
+@Table(name = "Person")
 public class Person {
 
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name="age")
+    @Column(name = "age")
     private int age;
 
     public Person() {
@@ -35,6 +35,7 @@ public class Person {
         this.id = id;
     }
 
+
     public String getName() {
         return name;
     }
@@ -49,5 +50,14 @@ public class Person {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
     }
 }
