@@ -3,6 +3,8 @@ package ru.ugrinovich.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 // помечаем класс для связи с hibernate
 @Entity
 @Table(name = "Person")
@@ -12,6 +14,9 @@ public class Person {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Item> items;
 
     @Column(name = "name")
     private String name;
@@ -35,6 +40,13 @@ public class Person {
         this.id = id;
     }
 
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
 
     public String getName() {
         return name;
