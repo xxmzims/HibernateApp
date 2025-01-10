@@ -3,9 +3,10 @@ package ru.ugrinovich;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import ru.ugrinovich.model.Person;
+import ru.ugrinovich.model.Director;
+import ru.ugrinovich.model.Movie;
 
-import java.util.List;
+
 
 
 /**
@@ -19,7 +20,7 @@ public class App
     public static void main( String[] args )
     {
         // создаем конфигурацию и передаем в нее нашу сущность
-        Configuration configuration = new Configuration().addAnnotatedClass(Person.class);
+        Configuration configuration = new Configuration().addAnnotatedClass(Director.class).addAnnotatedClass(Movie.class);
 
         // создаем сессию
         SessionFactory sessionFactory = configuration.buildSessionFactory();
@@ -30,10 +31,9 @@ public class App
         try {
             session.beginTransaction();
 
-            List<Person> personList = session.createQuery("FROM Person WHERE age < 30 ").getResultList();
-            for (Person person: personList){
-                System.out.println(person);
-            }
+            Director director = session.get(Director.class, 5);
+
+
 
             session.getTransaction().commit();
 

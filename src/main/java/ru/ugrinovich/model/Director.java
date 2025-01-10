@@ -3,13 +3,14 @@ package ru.ugrinovich.model;
 
 import jakarta.persistence.*;
 
-// помечаем класс для связи с hibernate
+import java.util.List;
+
 @Entity
-@Table(name = "Person")
-public class Person {
+@Table(name = "Director")
+public class Director {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "director_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -19,10 +20,27 @@ public class Person {
     @Column(name = "age")
     private int age;
 
-    public Person() {
+    @OneToMany(mappedBy = "owner")
+    private List<Movie> movies;
+
+    public List<Movie> getMovies() {
+        return movies;
     }
 
-    public Person(String name, int age) {
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
+    }
+
+    public Director() {
+    }
+
+    public Director(String name, int age, List<Movie> movies) {
+        this.name = name;
+        this.age = age;
+        this.movies = movies;
+    }
+
+    public Director(String name, int age) {
         this.name = name;
         this.age = age;
     }
@@ -34,7 +52,6 @@ public class Person {
     public void setId(int id) {
         this.id = id;
     }
-
 
     public String getName() {
         return name;
@@ -54,10 +71,10 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "id=" + id +
+        return "Director{" +
+                "age='" + age + '\'' +
                 ", name='" + name + '\'' +
-                ", age=" + age +
+                ", id=" + id +
                 '}';
     }
 }
