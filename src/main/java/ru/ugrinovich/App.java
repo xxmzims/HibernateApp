@@ -29,25 +29,14 @@ public class App {
 
         //создаем транзакцию
         try {
-            List<Principal> principals = getAllPrincipals();
-            for (Principal principal : principals) {
-                System.out.println(principal);
-            }
-            System.out.println(getPrincipal(1));
+            Transaction transaction = session.beginTransaction();
+            School school = new School(200);
+            Principal principal = new Principal(20, "max", school);
+            school.setPrincipal(principal);
+            session.persist(principal);
+            session.persist(school);
 
-            System.out.println();
-
-            Optional optional = findAnySchoolOrNull();
-
-            if (optional.isPresent()) {
-                System.out.println(optional.get());
-            }
-//            int changedRows = updatePrincipal("dima", 1);
-//            if(changedRows > 0){
-//                System.out.println("Success Update");
-//            }
-            ScrollingPrincipal();
-
+            transaction.commit();
         } finally {
             // закрываем транзакцию
             sessionFactory.close();

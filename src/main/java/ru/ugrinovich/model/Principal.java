@@ -1,14 +1,16 @@
 package ru.ugrinovich.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
-
+import java.util.Date;
 
 
 @Entity
 @Table(name = "Principal")
-public class Principal implements Serializable                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          {
+public class Principal implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +25,16 @@ public class Principal implements Serializable                                  
 
     @OneToOne(mappedBy = "principal", cascade = CascadeType.PERSIST)
     private School school;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_time")
+    private Date created;
+
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_time")
+    private Date updated;
 
     public Principal() {
 

@@ -1,26 +1,30 @@
 package ru.ugrinovich.model;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.io.Serializable;
+import java.util.Date;
+
 
 @Entity
 @Table(name = "School")
-public class School{
+public class School {
 
     @Id
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "principal_id", referencedColumnName = "id")
     private Principal principal;
 
+
     @Column(name = "school_number")
     private int schoolNumber;
+
 
     public School() {
     }
 
-    public School( int schoolNumber) {
+    public School(int schoolNumber) {
         this.schoolNumber = schoolNumber;
     }
 
@@ -39,6 +43,7 @@ public class School{
     public void setSchoolNumber(int schoolNumber) {
         this.schoolNumber = schoolNumber;
     }
+
 
     @Override
     public String toString() {
